@@ -74,6 +74,13 @@
 - **FR :** GNU/Linux, tmux, GDB + GEF, pwntools, rizin/radare2, Ghidra, Binary Ninja (communautaire), qemu-user.
 - **EN:** GNU/Linux, tmux, GDB + GEF, pwntools, rizin/radare2, Ghidra, Binary Ninja (community), qemu-user.
 
+### Technologies clés / Key Technologies
+- **GDB + GEF :** débogage dynamique, inspection mémoire et instrumentation de scénarios pwn ; dynamic debugging & memory inspection.
+- **pwntools :** automatisation des exploits, génération de payloads, fuzzing ciblé ; exploit automation & payload orchestration.
+- **NASM :** génération d'opcodes précis pour shellcodes et gadgets personnalisés ; handcrafted shellcode authoring.
+- **Python 3 :** scripts d'automatisation, tooling auxiliaire et génération de données ; automation scripting backbone.
+- **C :** base des binaires vulnérables, prototypes de vulnérabilités et harness de test ; vulnerable binary authoring.
+
 ---
 
 ## Compétences développées / Skills Spotlight

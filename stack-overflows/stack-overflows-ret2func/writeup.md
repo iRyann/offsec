@@ -32,9 +32,12 @@ Un dépassement de pile permet d’écraser l’adresse de retour de `main` et d
 
 ## Outils
 
-- `gdb`/`gef` pour mesurer l’offset et récupérer l’adresse de `login`
-- `pwntools` pour fabriquer le payload et automatiser l’attaque
-- `checksec` pour confirmer l’absence de canary/PIE
+- **GDB + GEF** — traçage dynamique, suivi des registres et de la mémoire.
+- **pwntools** — génération de payloads, orchestrations multi-phase et automatisation.
+- **NASM** — assemblage de shellcodes personnalisés ou instrumentation précise.
+- **Python 3** — scripts d'automatisation, tooling auxiliaire, parsing.
+- **C** — code vulnérable, harness minimal, reproductions.
+- Autres utilitaires : checksec, file, strings, objdump, angr, etc.
 
 ---
 

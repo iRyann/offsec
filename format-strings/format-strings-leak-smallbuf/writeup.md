@@ -32,9 +32,12 @@ Récupérer la valeur du `secret` puis celle du stack canary pour franchir les d
 
 ## Outils
 
-- `gdb`/`gef` pour repérer l’offset du canary
-- `pwntools` pour orchestrer les fuites et les conversions
-- `fmtstr_payload` / formatage manuel pour `%N$p`
+- **GDB + GEF** — traçage dynamique, suivi des registres et de la mémoire.
+- **pwntools** — génération de payloads, orchestrations multi-phase et automatisation.
+- **NASM** — assemblage de shellcodes personnalisés ou instrumentation précise.
+- **Python 3** — scripts d'automatisation, tooling auxiliaire, parsing.
+- **C** — code vulnérable, harness minimal, reproductions.
+- Autres utilitaires : checksec, file, strings, objdump, angr, etc.
 
 ---
 

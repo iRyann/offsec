@@ -32,9 +32,12 @@ Réorienter `saved RIP` vers `show_alphabet()` (ou `main`) après avoir obtenu u
 
 ## Outils
 
-- `gdb`/`pwndbg` pour mesurer les offsets et suivre les flux
-- `pwntools` pour automatiser les deux étapes (fuite + exploitation)
-- `pattern create` / `pattern search` pour l’offset initial
+- **GDB + GEF** — traçage dynamique, suivi des registres et de la mémoire.
+- **pwntools** — génération de payloads, orchestrations multi-phase et automatisation.
+- **NASM** — assemblage de shellcodes personnalisés ou instrumentation précise.
+- **Python 3** — scripts d'automatisation, tooling auxiliaire, parsing.
+- **C** — code vulnérable, harness minimal, reproductions.
+- Autres utilitaires : checksec, file, strings, objdump, angr, etc.
 
 ---
 
