@@ -5,7 +5,7 @@
 
 ## Challenges & Difficulté
 | Challenge | Description | Difficulté |
-| --- | --- | --- | --- |
+| --- | --- | --- |
 | [`format-strings-leak-smallbuf`](./format-strings-leak-smallbuf) | Première fuite sur tampon limité. | ★★☆☆☆ |
 | [`format-strings-leak`](./format-strings-leak) | Enumération des adresses stack/GOT par `%p`. | ★★☆☆☆ | 
 | [`format-strings-arbitrary-write`](./format-strings-arbitrary-write) | Première écriture `%n` en ciblant un pointeur de fonction. | ★★★☆☆ |
