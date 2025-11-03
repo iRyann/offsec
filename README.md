@@ -7,13 +7,13 @@
 ---
 
 ## Sommaire · Table of Contents
-- [Objectif du dépôt / Repository Goal](#objectif-du-dépôt--repository-goal)
-- [Méthodologie d'exploitation / Exploitation Workflow](#méthodologie-dexploitation--exploitation-workflow)
-- [Projets mis en avant / Highlight Projects](#projets-mis-en-avant--highlight-projects)
-- [Structure du dépôt / Repository Map](#structure-du-dépôt--repository-map)
-- [Outils principaux / Core Tooling](#outils-principaux--core-tooling)
-- [Compétences développées / Skills Spotlight](#compétences-développées--skills-spotlight)
-- [Pistes de contribution / Contribution Checklist](#pistes-de-contribution--contribution-checklist)
+- [Objectif du dépôt](#objectif-du-dépôt--repository-goal)
+- [Méthodologie d'exploitation ](#méthodologie-dexploitation--exploitation-workflow)
+- [Projets mis en avant](#projets-mis-en-avant--highlight-projects)
+- [Structure du dépôt](#structure-du-dépôt--repository-map)
+- [Outils principaux](#outils-principaux--core-tooling)
+- [Compétences développées](#compétences-développées--skills-spotlight)
+- [Pistes de contribution](#pistes-de-contribution--contribution-checklist)
 
 ---
 
