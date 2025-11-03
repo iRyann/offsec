@@ -13,7 +13,6 @@
 - [Structure du dépôt](#structure-du-dépôt--repository-map)
 - [Outils principaux](#outils-principaux--core-tooling)
 - [Compétences développées](#compétences-développées--skills-spotlight)
-- [Pistes de contribution](#pistes-de-contribution--contribution-checklist)
 
 ---
 
