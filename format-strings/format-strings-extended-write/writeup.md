@@ -1,39 +1,40 @@
 ---
-title: "4-printf-04-write2"
-challenge: "Neal"
-difficulty: "4"
-platform: "amd64/remote"
-date: "2025-11-02"
-tags: [binary]
+title: "Format string extended write"
+challenge: "Neal — printf padding"
+difficulty: "Medium"
+platform: "amd64/local"
+date: "2024-05-08"
+tags: [format-string, arbitrary-write]
 author: "Ryan Bouchou"
-status: "in-progress"
+status: "solved"
 ---
 
-# Titre lisible
+# Remplacer `ls` par `sh` avec `%n`
 
-**Résumé (1-2 lignes)**
-Résumé court...
+**Résumé (1-2 lignes)**  
+En combinant le padding de `printf` et `%n`, on remplace la chaîne `safe_command` par `sh` malgré un buffer d’entrée très court, ce qui force `system(ls)` à ouvrir un shell.
 
 ---
 
 ## Contexte
 
-- Source : cours
-- Environnement testé : Arch Linux, amd64, glibc 2.35
-- Fichiers fournis : vuln, main.c
+- Source : exercice `printf` avancé (Neal)
+- Environnement testé : Arch Linux (amd64)
+- Fichiers fournis : [`main.c`](./main.c), binaire compilé correspondant
 
 ---
 
 ## Objectif
 
-Récupérer la flag / obtenir un shell
+Écraser la chaîne `safe_command[] = "ls -lah *";` pour exécuter `/bin/sh` lors de l’appel final à `system`.
 
 ---
 
 ## Outils
 
-- gdb + gef
-- pwntools (python3)
+- `gdb`/`gef` pour vérifier l’offset de `safe_command`
+- `pwntools` pour calculer automatiquement le padding correspondant à `"sh"`
+- `fmtstr_payload` ou formatage manuel (`%<N>c%M$n`)
 
 ---
 
@@ -41,46 +42,56 @@ Récupérer la flag / obtenir un shell
 
 ### 1) Reconnaissance statique
 
-L'idée est d'écrire `"sh"` à la place de l'adresse de `safe_command` comme valeur de la variable `ls`.
+- `safe_command` est un tableau global, et `ls` pointe dessus avant l’appel à `system(ls);`. 【F:format-strings/format-strings-extended-write/main.c†L13-L30】
+- La chaîne saisie est lue avec `scanf("%14s", buf);` : pas d’espace possible, mais `%n` reste exploitable.
+- Lors du `printf(buf);`, le 6ᵉ argument de `printf` correspond à `ls` (`safe_command`), ce qui autorise `%6$n`.
 
 ### 2) Analyse dynamique
 
-On remarque que `rsp` pointe sur `ls`.
+- Dans `gdb`, `x/s safe_command` confirme que l’adresse reste constante pendant l’exécution et est accessible en écriture.
+- `printf("%6$p")` révèle que le 6ᵉ argument pointe bien sur `safe_command`.
 
 ### 3) Exploit
 
-> [!TIP] Stratégie : format-string
-> On sait que `%<nombre>c` permet d'écrie `nombre` + 1 caractères, et `%N$p` permet d'écire le nombre d'octets écrit par `printf` à l'emplacement du $X$ ème argument de cette dernière.
+> Stratégie : écrire la valeur décimale de `u16(b"sh")` à l’aide du padding
 
-En particulier, on sait que les codes ASCII de _s_ et _h_ correspondent respectivement à 73 et 68. Ainsi, comme la représenation hexadécimale en little endian `0x68 0x73` correspond à l'entier 26739 en décimal, je pense au payload suivant :
+- `u16(b"sh")` donne `0x6873` soit `26739` en décimal.
+- On construit `"%26739c%6$n"` : `printf` écrit 26739 caractères (un espace suivi de 26738 espaces) puis `%6$n` stocke cette valeur sur deux octets à l’adresse de `safe_command`.
 
 ```python
-payload = b"%26738c%6$n"
+sh_int = u16(b"sh")
+payload = f"%{sh_int}c%6$n".encode()
 ```
-L'injection de ce dernier retourne : `sh: rh: command not found`.
-On remarque :
-    1. On obtient un shell en dépit de la commande `ls` et non pas écriture de `sh` à l'adresse voulue, manifestement...
-    2. Le spécificateur de format `%<nombre>c` à écrit `nombre` octets, en dépit des `nombre` + 1 attendus.
 
-## Payload (extrait) :
-Par conséquent, le payload devient : `b"%26739c%6$n"` 
+- Après l’envoi, `system(ls)` exécute bien `/bin/sh`. 【F:format-strings/format-strings-extended-write/solution.py†L9-L15】
+
+---
+
 ## Résultat
 
-- Flag : CTF{8592622519e646e69cf7189c48accc8e}
+- Flag obtenu : `CTF{8592622519e646e69cf7189c48accc8e}`.
 
 ## Root cause
 
+Combinaison d’un format string contrôlé et d’un pointeur vers une chaîne modifiable passé comme argument à `printf`, permettant d’écrire des valeurs arbitraires avec `%n` malgré un buffer restreint.
 
 ## Mitigation
 
-- corrections proposées
+- Interdire `%n` via un filtre ou utiliser `printf("%s", buf);`.
+- Ne pas conserver de pointeurs vers des commandes sensibles dans la liste d’arguments d’un `printf` non maîtrisé.
 
 ## Leçons apprises / next steps
 
+- Le padding `%<N>c` est une alternative compacte lorsqu’un buffer limite la longueur du payload.
+- Prévoir une version 64 bits (`%ln`) pour écraser l’intégralité d’un pointeur.
 
 ## Commandes & références
 
+- `gdb -q ./bin`, `b *main+0x124`, `x/s safe_command`
+- Documentation `printf` sur les conversions `%n` et la notation de champ
 
 ## Artefacts
 
-- exploit.py
+- [`exploit.py`](./exploit.py)
+- [`solution.py`](./solution.py)
+- Notes de calcul sur les valeurs `u16`

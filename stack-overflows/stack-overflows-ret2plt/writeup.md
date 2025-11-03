@@ -1,18 +1,98 @@
-b après le call, pour observer l'@ du buffer, trouver l'@ de retour et l'override par @ login.
+---
+title: "ret2plt"
+challenge: "Formation interne"
+difficulty: "Medium"
+platform: "amd64/local"
+date: "2024-02-20"
+tags: [stack-overflow, rop]
+author: "Ryan Bouchou"
+status: "solved"
+---
 
-grep "COUCOU" pour trouver l'@ buffer
+# Rebondir via la PLT
 
-info func pour @ login
+**Résumé (1-2 lignes)**  
+Plutôt que d’écrire un shellcode, on redirige l’adresse de retour sur `login()` via un gadget `ret` pour réaligner la pile avant l’appel.
 
-rsp pointe sur le sommet de la stack, on vient d'ajouter un nouvel élément, d'ou
+---
 
-Une ligne 16, on voit rapidement l'offset de rsp à l'endroit qui nous interesse.
+## Contexte
 
-on rentre l'add : il faut la noter en little endian : 401156 devient 56 11 40.
-En interpollant, 56 : V, 11 : <C-q>, 40 : @
+- Source : exercice « ret2plt »
+- Environnement testé : Arch Linux (amd64)
+- Fichiers fournis : [`main.c`](./main.c), binaire compilé correspondant
 
-movdqa : effecte à un registre de 128 bits, mais attend que la pile soit bien alignée.
+---
 
-Or, ici, le push desalligne. Ansi, on se dit qu'on va simplement jump après le push
+## Objectif
 
--> 57 : W
+Exploiter `gets` pour déclencher `login()` malgré NX et ASLR partiel.
+
+---
+
+## Outils
+
+- `gdb`/`gef` pour calculer l’offset et récupérer les adresses (`login`, gadget `ret`)
+- `pwntools` + `ROP(exe)` pour identifier un gadget de réalignement
+- `checksec` pour confirmer les protections (NX activé, RELRO partiel)
+
+---
+
+## Analyse
+
+### 1) Reconnaissance statique
+
+- `login()` appelle `system("/bin/sh");`. 【F:stack-overflows/stack-overflows-ret2plt/main.c†L24-L34】
+- `gets(buffer)` sur 64 octets de pile sans canary : overflow possible.
+- NX est actif, d’où la nécessité de réutiliser du code existant plutôt qu’un shellcode.
+
+### 2) Analyse dynamique
+
+- `pattern create 200` → `pattern search` : offset de 72 octets entre `buffer` et `saved RIP`.
+- `ROP(exe).ret.address` fournit un gadget `ret` nécessaire pour réaligner la pile avant d’appeler `login` (sinon crash dû à `movdqa`).
+- `exe.sym["login"]` donne l’adresse de la fonction cible.
+
+### 3) Exploit
+
+> Stratégie : `padding + ret + login`
+
+```python
+payload = flat({
+    0x6161617461616173: (
+        rop.ret.address,
+        exe.sym["login"],
+    ),
+})
+```
+
+- On écrit d’abord l’adresse du gadget `ret`, puis celle de `login`. L’appel final à `printf` déclenche `login()` et ouvre un shell. 【F:stack-overflows/stack-overflows-ret2plt/solution.py†L9-L31】
+
+---
+
+## Résultat
+
+- Shell `/bin/sh` accessible.
+
+## Root cause
+
+Absence de canary et lecture non bornée malgré NX.
+
+## Mitigation
+
+- Remplacer `gets` par `fgets`.
+- Activer PIE et FULL RELRO pour rendre les adresses moins prévisibles et la GOT immuable.
+
+## Leçons apprises / next steps
+
+- Penser à l’alignement de la pile avec des gadgets `ret` lorsque des instructions SSE apparaissent (`movdqa`).
+- Étendre l’exploit pour appeler d’autres fonctions (ROP plus long : `system("/bin/sh")`, `setuid(0)`, etc.).
+
+## Commandes & références
+
+- `ROPgadget --binary ./bin | grep "ret"`
+- `gdb -q ./bin`, `pattern create 200`, `pattern search`
+
+## Artefacts
+
+- [`solution.py`](./solution.py)
+- Notes d’alignement de la pile

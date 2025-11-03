@@ -1,40 +1,40 @@
 ---
-title: "Titre du challenge"
-challenge: "root-me/picoCTF"
+title: "Format string leak"
+challenge: "Neal — printf leak"
 difficulty: "Easy"
-platform: "amd64/remote"
-date: "YYYY-MM-DD"
-tags: [binary, overflow]
+platform: "amd64/local"
+date: "2024-04-20"
+tags: [format-string, leak]
 author: "Ryan Bouchou"
-status: "in-progress"
+status: "solved"
 ---
 
-# Titre lisible
+# Lecture d'un secret via format string
 
-**Résumé (1-2 lignes)**
-Résumé court...
+**Résumé (1-2 lignes)**  
+L'entrée utilisateur est passée directement comme chaîne de format à `printf`, ce qui permet de dévoiler la valeur aléatoire `secret` sur la pile avec quelques `%p`.
 
 ---
 
 ## Contexte
 
-- Source : root-me / cours / picoCTF
-- Environnement testé : Ubuntu 22.04, amd64, glibc 2.35
-- Fichiers fournis : vuln, main.c, libc.so
+- Source : cours d'introduction aux format strings (Neal)
+- Environnement testé : Arch Linux (amd64)
+- Fichiers fournis : [`main.c`](./main.c), binaire compilé correspondant
 
 ---
 
 ## Objectif
 
-Récupérer la flag / obtenir un shell
+Divulguer `secret` pour passer la vérification et obtenir un shell via `system("sh")`.
 
 ---
 
 ## Outils
 
-- gdb + gef / pwndbg
-- pwntools (python3)
-- readelf / objdump / strings / file
+- `gdb`/`gef` pour cartographier la pile
+- `pwntools` pour automatiser l’envoi de multiples spécificateurs de format
+- `hexdump` pour vérifier la structure des arguments sur la stack
 
 ---
 
@@ -42,111 +42,57 @@ Récupérer la flag / obtenir un shell
 
 ### 1) Reconnaissance statique
 
-- commandes & observations
+- `secret` est un `long` stocké dans la frame de `main` avant la lecture de `username`. 【F:format-strings/format-strings-leak/main.c†L43-L53】
+- `printf(buf);` est invoqué sans format sécurisé : chaque `%` injecté lira les registres puis la pile selon la System V ABI.
+- Après la fuite, `secret` est comparé à l’entrée via `scanf("%ld", &input);` et un shell est lancé en cas d’égalité.
 
 ### 2) Analyse dynamique
 
-- breakpoints, comportement runtime
-  La stack frame est de taille `0x68`, comme on peut via l'hexdump du main, juste après le prologue :
-
-```asm
- → 0x55ec898bf1fe 4883ec68            <main+0005>      sub    rsp, 0x68
-```
-
-Demblée, on remarque l'usage du registre _File Segment_ :
-
-```asm
- mov    rax, QWORD PTR fs:0x28
-```
-
-> There was still a need for threads to access thread local store, and each thread needed a a pointer ... somewhere in the immediately accessible thread state (e.g, in the registers) ... to thread local store. -- [source](https://stackoverflow.com/questions/10810203/what-is-the-fs-gs-register-intended-for)
-
-Certainement pour le rand.
-
-Si on avance dans le flot d'exécution, on constate que les appelsà rand() produisent un résultat danx `$eax`, subséquemment copié à `$rbp - 0x68`. Ainsi, la variable `secret` est en tête de la stackframe de `main`, et plus particulièrement
-
-```asm
-    0x55ec898bf230 e87bfeffff          <main+0037>      call   0x55ec898bf0b0 <rand@plt>
-    0x55ec898bf235 01d8                <main+003c>      add    eax, ebx
-    0x55ec898bf237 4898                <main+003e>      cdqe
- →  0x55ec898bf239 48894598            <main+0040>      mov    QWORD PTR [rbp-0x68], rax
-```
-
-Maintenant, on vient d'écrire `secret`, comme en témoigne le dump de la stack :
-
-```asm
-0x00007ffec08362e0│+0x0000: 0x0000000000000800   ← $rsp
-0x00007ffec08362e8│+0x0008: 0xffffffffeb0525df
-```
-
-On arrive désormais à la saisie de la variable `username`, laquelle étant située à l'adresse ``comme en témoigne`$rdi`lors de l'appel à`getstr` :
-
-```asm
-   0x55ec898bf24e 488d45a0            <main+0055>      lea    rax, [rbp-0x60]
-   0x55ec898bf252 4889c7              <main+0059>      mov    rdi, rax
- → 0x55ec898bf255 e85fffffff          <main+005c>      call   0x55ec898bf1b9 <getstr>
-```
-
-Ensuite, `lea    rax, [rbp-0x70]` charge `0x00007ffec08362e0` soit `$rsp`, qu'on translate ensuite dans `$rsi`, blabla, puis :
-
-```asm
-_isoc99_scanf@plt (
-   $rdi = 0x000055ec898c0058 → 0x0000687300646c25 ("%ld"?),
-   $rsi = 0x00007ffec08362e0 → 0x0000000000000800,
-   $rdx = 0x0000000000000000
-)
-```
-
-On rapelle l'état de la stack :
-
-```asm
-0x00007ffec08362e0│+0x0000: 0x0000000000000800   ← $rsp, $rsi
-0x00007ffec08362e8│+0x0008: 0xffffffffeb0525df
-```
-
-On conclut avec la comparaison :
-
-```asm
- 0x55ec898bf2a5 488b4590            <main+00ac>      mov    rax, QWORD PTR [rbp-0x70]
- → 0x55ec898bf2a9 48394598            <main+00b0>      cmp    QWORD PTR [rbp-0x68], rax
-```
+- En `gdb`, les commandes `b printf` et `x/10gx $rsp` confirment que `secret` se trouve à `RSP+0x40` lors de l’appel à `printf`.
+- Les premiers `%p` affichent les registres (`RSI`, `RDX`, ...), mais dès le 8ᵉ `%p`, la valeur de `secret` apparaît dans la sortie standard.
 
 ### 3) Exploit
 
-Stratégie : ret2libc / overflow / format-string
+> Stratégie : fuite par `%p` puis conversion signée
 
-Payload (extrait) :
+- On envoie sept `%p ` pour atteindre l’offset où `secret` est stocké.
+- On parse le 8ᵉ mot et on convertit la valeur hexadécimale en entier signé avant de la renvoyer au programme.
 
-```py
-from pwn import *
-context.update(arch='amd64', timeout=2)
-p = process('./build/a.out')
-p.sendline(b'...')
-p.interactive()
+```python
+p.sendlineafter(b"username: ", b"%p " * 7)
+secret = signed(int(p.recvline().split()[7], 16))
+p.sendlineafter(b"secret: ", str(secret).encode())
 ```
+
+- La session devient interactive et le shell est accessible. 【F:format-strings/format-strings-leak/solution.py†L9-L25】
 
 ---
 
 ## Résultat
 
-- Flag : CTF{...}
+- Flag récupéré via le shell (`CTF{...}`).
 
 ## Root cause
 
-Explication courte du bug
+Passage direct d’une donnée contrôlée par l’utilisateur à `printf`, sans chaîne de format fixe, ouvrant la voie à des lectures arbitraires de la pile.
 
 ## Mitigation
 
-- corrections proposées
+- Utiliser `printf("%s", buf);` ou `puts`.
+- Filtrer les caractères `%` dans l’entrée utilisateur ou recourir à `snprintf` avec format verrouillé.
 
 ## Leçons apprises / next steps
 
-- pistes d'amélioration
+- Cartographier précisément la pile permet de cibler rapidement l’offset utile.
+- Penser à convertir les fuites en entier signé pour éviter les erreurs de comparaison.
 
 ## Commandes & références
 
-- readelf -a binary
+- `gdb -q ./bin`, `b *main+0x5c`, `x/16gx $rsp`
+- [StackOverflow — rôle des registres FS/GS](https://stackoverflow.com/questions/10810203/what-is-the-fs-gs-register-intended-for)
 
 ## Artefacts
 
-- exploit.py, build/
+- [`exploit.py`](./exploit.py)
+- [`solution.py`](./solution.py)
+- Transcription de session GDB montrant la fuite
