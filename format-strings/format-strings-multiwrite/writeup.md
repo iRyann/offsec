@@ -1,40 +1,40 @@
 ---
-title: "4-printf-04-write2"
-challenge: "Neal"
-difficulty: "5"
-platform: "amd64/remote"
-date: "2025-11-02"
-tags: [binary, got_overwrite]
+title: "Format string multi-write"
+challenge: "Neal — printf GOT overwrite"
+difficulty: "Medium"
+platform: "amd64/local"
+date: "2024-05-15"
+tags: [format-string, got-overwrite]
 author: "Ryan Bouchou"
-status: "in-progress"
+status: "solved"
 ---
 
-# Titre lisible
+# Écrasement de GOT par écritures multiples
 
-**Résumé (1-2 lignes)**
-Résumé court...
+**Résumé (1-2 lignes)**  
+En plaçant une adresse dans le buffer puis en utilisant `%n`, on écrase l’entrée GOT de `puts` avec `success()` pour lancer `system("sh")` dès le prochain appel.
 
 ---
 
 ## Contexte
 
-- Source : cours
-- Environnement testé : Arch Linux, amd64
-- Fichiers fournis : vuln, main.c
+- Source : exercice avancé sur `%n` et la GOT (Neal)
+- Environnement testé : Arch Linux (amd64)
+- Fichiers fournis : [`main.c`](./main.c), binaire compilé correspondant
 
 ---
 
 ## Objectif
 
-Récupérer le flag en obtenant un shell
+Rediriger `puts@GOT` vers `success()` afin qu’un appel ultérieur exécute un shell.
 
 ---
 
 ## Outils
 
-- gdb + gef
-- pwntools (python3)
-- checksec
+- `gdb`/`gef` pour récupérer les adresses de la GOT et de `success`
+- `pwntools` et son utilitaire `fmtstr_payload`
+- `checksec` pour vérifier les protections (RELRO partiel)
 
 ---
 
@@ -42,60 +42,56 @@ Récupérer le flag en obtenant un shell
 
 ### 1) Reconnaissance statique
 
-On dispose de 150 octets, situés au niveau de `rsp` -- `main` n'ayant qu'une seule variable dans sa portée -- afin d'écrire l'adresse de `success` au niveau de `saved_rip`. On utilise `checksec` pour en apprendre plus sur les statégies de sécurité mise en oeuvre par le programme :
-
-```zsh
-RELRO           STACK CANARY      NX            PIE             RPATH      RUNPATH      Symbols      FORTIFY  Fortified       Fortifiable     FILE
-Partial RELRO   Canary found      NX enabled    No PIE          No RPATH   No RUNPATH   71 Symbols     No     0               1               4-printf-05-write3
-```
-
-Manifestement :
-
-- **PIE** : En l'absence de PIE, les adresses du binaire sont fixes.
-- **RELRO** : En mode _partiel_, la GOT est modifiable. À l'inverse, en mode _full_, on ne peut pas écraser celle-ci.
-- **Canary** : Présent, mais pas génant dans le cadre de l'exploitation à venir puisqu'on ne fait pas de buffer overflow.
+- `buf` (150 octets) est lu via `scanf("%149s", buf);`, offrant suffisamment d’espace pour placer des pointeurs et du formatage. 【F:format-strings/format-strings-multiwrite/main.c†L38-L47】
+- `success()` exécute `system("sh");`, c’est donc la cible à déclencher.
+- RELRO est partiel : les entrées GOT restent modifiables, notamment `puts@GOT` appelée implicitement par `printf`.
 
 ### 2) Analyse dynamique
 
-En exécutant le programme avec GDB, on peut déterminer l'addresse de `success` avec la commande `info functions` : on obtient `0x0000000000401176  success`.
-Ensuite, en faisant `disas main`, on note l'adresse d'une fonction de la GOT à réécrire qui intervient après `printf(buf)` (_e.g._ `puts`).
+- Avec `gdb`, on observe que `buf` débute à `RSP+0x10` et devient le 6ᵉ argument de `printf`, donc `%6$lln` permet d’écrire à l’adresse stockée au début de `buf`.
+- `elf.got["puts"]` est résolue à l’exécution ; en l’écrasant par `elf.sym["success"]`, tout appel ultérieur à `puts` (comme celui de `printf`) basculera sur `success`.
 
 ### 3) Exploit
 
-Stratégie : format-string
-On écrit l'adresse de retour à l'emplacement d'`rsp`, ie. du buffer, puis on utilise `%6$p` pour écrire à l'adresse spécifie par les huit premiers octets du buffer l'adresse de la fonction `success`. Pour ce faire, on écrit l'équivalent décimal d'espace avec `%<number-8>c`.
+> Stratégie : utiliser `fmtstr_payload` pour générer les écritures nécessaires
 
-1. On leak l'adresse de retour :
+- On construit le payload via `fmtstr_payload(6, {exe.got["puts"]: exe.sym["success"]})`.
+- Ce payload prépare des écritures partielles alignées sur 8 octets pour réécrire l’adresse complète.
 
 ```python
-payload = b'%6$p'
-io.sendlineafter(b'nom: ', payload)
-io.interactive()
+payload = fmtstr_payload(6, {exe.got["puts"]: exe.sym["success"]})
+io.sendlineafter(b"nom: ", payload)
 ```
 
-On note que `rsp`, et à fortiori `buf` se situe à `0x7f0070243625`  
-2. On construit un payload de la façon suivante : `saved_rip_addr` + `%118c` + `%6$n` + `saved_rip_addr + 1` + `%17c` + `%6$n` + `saved_rip_addr + 2` + `%64c` + `%6$n`
+- Après l’envoi, le `printf(buf);` se termine, puis `printf(", bienvenue !\n");` appelle `puts`, désormais détourné vers `success()`, ce qui ouvre le shell. 【F:format-strings/format-strings-multiwrite/solution.py†L9-L18】
+
+---
 
 ## Résultat
 
-- Flag : CTF{...}
+- Shell interactif, flag récupéré (`CTF{...}`).
 
 ## Root cause
 
-Explication courte du bug
+La combinaison d’un buffer contrôlé sur la pile, d’un `printf` non sécurisé et d’une GOT réinscriptible permet des écritures arbitraires via `%n`.
 
 ## Mitigation
 
-- corrections proposées
+- Activer `FULL RELRO` pour rendre la GOT immuable.
+- Utiliser `printf("%s", buf);` ou limiter la longueur de l’entrée.
 
 ## Leçons apprises / next steps
 
-- pistes d'amélioration
+- `fmtstr_payload` simplifie grandement les écritures multi-octets ; néanmoins, comprendre la mécanique manuelle reste crucial.
+- Tester des variantes écrivant `system` dans d’autres entrées GOT (`exit`, `printf`, etc.).
 
 ## Commandes & références
 
-- readelf -a binary
+- `checksec --file ./bin`
+- `gdb -q ./bin`, `b *main+0x8e`, `x/gx &puts@GOT`
 
 ## Artefacts
 
-- exploit.py, build/
+- [`exploit.py`](./exploit.py)
+- [`solution.py`](./solution.py)
+- Table d’offsets générée par `fmtstr_payload`
