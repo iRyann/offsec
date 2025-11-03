@@ -46,27 +46,27 @@
 ---
 
 ## Projets mis en avant / Highlight Projects
-| Projet · Project | Visuel · Visual | Description & Lien |
+| Projet · Project | Badges | Description & Lien |
 | --- | --- | --- |
-| Stack Overflow "ret2libc" | ![ret2libc Visual](https://img.shields.io/badge/ret2libc-stack%20pivoting-critical?style=flat-square&logo=stackshare) | **FR :** Chaîne retour vers libc avec contournement de `NX`. **EN:** ret2libc chain bypassing NX. → [Voir le résumé](./highlights/README.md#stack-overflow-ret2libc) |
-| Heap "Fastbin Frenzy" | ![Fastbin Visual](https://img.shields.io/badge/Fastbin-Frenzy-purple?style=flat-square&logo=linux) | **FR :** Corruption de tas via double free. **EN:** Double-free driven heap corruption. → [Voir le résumé](./highlights/README.md#heap-fastbin-frenzy) |
-| Reversing "Obfuscation Lab" | ![Obfuscation Visual](https://img.shields.io/badge/RE-Obfuscation%20Lab-9cf?style=flat-square&logo=gnuemacs) | **FR :** Déobfuscation d'un crackme et reconstruction de logique. **EN:** Deobfuscating a crackme to rebuild original logic. → [Voir le résumé](./highlights/README.md#reversing-obfuscation-lab) |
-| Crypto/Pwn Automation | ![Automation Visual](https://img.shields.io/badge/Automation-crypto%20solver-important?style=flat-square&logo=python) | **FR :** Pipeline pwntools pour signer et casser un schéma oracle. **EN:** Pwntools pipeline for oracle-based signing attack. → [Voir le résumé](./highlights/README.md#automation-oracle-attack) |
+| Ret2libc Real-World Chain | ![Tech: ret2libc](https://img.shields.io/badge/Tech-ret2libc-critical?style=flat-square) ![Level: Avancé](https://img.shields.io/badge/Niveau-Avanc%C3%A9-red?style=flat-square) | **FR :** ret2libc complet avec fuite dynamique. **EN:** Full ret2libc with live leak. → [Voir le résumé](./highlights/README.md#ret2libc-real-world-chain-stack-overflows-ret2main) |
+| Complex ROP Pivot | ![Tech: ROP](https://img.shields.io/badge/Tech-ROP-critical?style=flat-square) ![Focus: Stack Pivot](https://img.shields.io/badge/Focus-Stack%20Pivot-orange?style=flat-square) | **FR :** Pivot `.bss` et ROP multi-phase. **EN:** `.bss` pivot with multi-stage ROP. → [Voir le résumé](./highlights/README.md#complex-rop-pivot-stack-overflows-ret2plt-advanced) |
+| Advanced Format String | ![Tech: Format String](https://img.shields.io/badge/Tech-Format%20String-ff69b4?style=flat-square) ![Focus: Multiwrite](https://img.shields.io/badge/Focus-Multiwrite-brown?style=flat-square) | **FR :** Multi-écriture `%hn` orchestrée. **EN:** Orchestrated `%hn` multi-write. → [Voir le résumé](./highlights/README.md#advanced-format-string-multi-write-format-strings-multiwrite) |
+| Custom Shellcode vs Canary | ![Tech: Shellcode](https://img.shields.io/badge/Tech-Shellcode-blue?style=flat-square) ![Focus: Canary Bypass](https://img.shields.io/badge/Focus-Canary%20Bypass-brown?style=flat-square) | **FR :** Shellcode polymorphique après fuite du canari. **EN:** Polymorphic shellcode after canary leak. → [Voir le résumé](./highlights/README.md#custom-shellcode-vs-canary-shellcodes-ret2sc-canary) |
 
 ---
 
 ## Structure du dépôt / Repository Map
-| Dossier | Description FR | EN Description | Langages |
-| --- | --- | --- | --- |
-| [`/stack-overflows/`](./stack-overflows) | Exploitation de dépassements de pile. | Stack overflow exploitation labs. | C, Python |
-| [`/format-strings/`](./format-strings) | Vulnérabilités de chaînes de format. | Format string challenges. | C, Python |
-| [`/shellcodes/`](./shellcodes) | Construction de shellcodes personnalisés. | Custom shellcode crafting. | C, Python, ASM |
-| [`/heap/`](./heap) | Scénarios de corruption de tas. | Heap exploitation playground. | C, Python |
-| [`/misc/`](./misc) | Challenges transverses et automatisation. | Miscellaneous automation challenges. | C, Python |
-| [`/reversing/`](./reversing) | Études de binaires obfusqués. | Reverse engineering notebooks. | Python, C |
-| [`/highlights/`](./highlights) | Synthèses des projets marquants. | Key project summaries. | Markdown |
-| [`/templates/`](./templates) | Gabarits de scripts et fiches méthodes. | Script templates & cheat sheets. | Markdown |
-| `/notes/` _(à venir)_ | Ressources personnelles et mémos. | Personal notes & cheat sheets. | Markdown |
+| Dossier | Description FR | EN Description | Langages | Badges |
+| --- | --- | --- | --- | --- |
+| [`/stack-overflows/`](./stack-overflows) | Exploitation de dépassements de pile. | Stack overflow exploitation labs. | C, Python | ![Tech: ROP](https://img.shields.io/badge/Tech-ROP-critical?style=flat-square) ![Level Mix](https://img.shields.io/badge/Niveaux-2%E2%80%935%E2%98%85-blueviolet?style=flat-square) |
+| [`/format-strings/`](./format-strings) | Vulnérabilités de chaînes de format. | Format string challenges. | C, Python | ![Tech: Format String](https://img.shields.io/badge/Tech-Format%20String-ff69b4?style=flat-square) ![Focus: Writes](https://img.shields.io/badge/Focus-Writes-green?style=flat-square) |
+| [`/shellcodes/`](./shellcodes) | Construction de shellcodes personnalisés. | Custom shellcode crafting. | C, Python, ASM | ![Tech: Shellcode](https://img.shields.io/badge/Tech-Shellcode-blue?style=flat-square) ![Focus: Constraints](https://img.shields.io/badge/Focus-Constraints-teal?style=flat-square) |
+| [`/heap/`](./heap) | Scénarios de corruption de tas. | Heap exploitation playground. | C, Python | ![Tech: Heap](https://img.shields.io/badge/Tech-Heap-9cf?style=flat-square) ![Focus: Fastbin](https://img.shields.io/badge/Focus-Fastbin-purple?style=flat-square) |
+| [`/misc/`](./misc) | Challenges transverses et automatisation. | Miscellaneous automation challenges. | C, Python | ![Focus: Automation](https://img.shields.io/badge/Focus-Automation-yellow?style=flat-square) ![Level Mix](https://img.shields.io/badge/Niveaux-2%E2%80%934%E2%98%85-orange?style=flat-square) |
+| [`/reversing/`](./reversing) | Études de binaires obfusqués. | Reverse engineering notebooks. | Python, C | ![Tech: RE](https://img.shields.io/badge/Tech-Reversing-9cf?style=flat-square) ![Focus: VM](https://img.shields.io/badge/Focus-VM-green?style=flat-square) |
+| [`/highlights/`](./highlights) | Synthèses des projets marquants. | Key project summaries. | Markdown | ![Meta: Writeups](https://img.shields.io/badge/Meta-Writeups-lightgrey?style=flat-square) |
+| [`/templates/`](./templates) | Gabarits de scripts et fiches méthodes. | Script templates & cheat sheets. | Markdown | ![Meta: Templates](https://img.shields.io/badge/Meta-Templates-00ced1?style=flat-square) |
+| `/notes/` _(à venir)_ | Ressources personnelles et mémos. | Personal notes & cheat sheets. | Markdown | ![Status: TODO](https://img.shields.io/badge/Status-TODO-lightgrey?style=flat-square) |
 
 ---
 
