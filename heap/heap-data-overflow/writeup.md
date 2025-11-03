@@ -32,9 +32,12 @@ Déclencher `system("sh")` en activant le flag administrateur sans connaître le
 
 ## Outils
 
-- `gdb` + `gef` pour inspecter la mémoire globale
-- `pwntools` pour générer le bourrage et piloter la connexion distante
-- `hexdump`/`xxd` afin de vérifier le contenu du payload
+- **GDB + GEF** — traçage dynamique, suivi des registres et de la mémoire.
+- **pwntools** — génération de payloads, orchestrations multi-phase et automatisation.
+- **NASM** — assemblage de shellcodes personnalisés ou instrumentation précise.
+- **Python 3** — scripts d'automatisation, tooling auxiliaire, parsing.
+- **C** — code vulnérable, harness minimal, reproductions.
+- Autres utilitaires : checksec, file, strings, objdump, angr, etc.
 
 ---
 

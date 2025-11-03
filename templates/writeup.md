@@ -32,9 +32,12 @@ Que faut-il obtenir (flag, shell, mot de passe, etc.).
 
 ## Outils
 
-- Débogueurs / frameworks (gdb, pwndbg, gef, etc.)
-- Bibliothèques (pwntools, angr, ...)
-- Utilitaires (checksec, file, strings, objdump, ...)
+- **GDB + GEF** — traçage dynamique, suivi des registres et de la mémoire.
+- **pwntools** — génération de payloads, orchestrations multi-phase et automatisation.
+- **NASM** — assemblage de shellcodes personnalisés ou instrumentation précise.
+- **Python 3** — scripts d'automatisation, tooling auxiliaire, parsing.
+- **C** — code vulnérable, harness minimal, reproductions.
+- Autres utilitaires : checksec, file, strings, objdump, angr, etc.
 
 ---
 

@@ -32,9 +32,12 @@ Déterminer l’offset entre `buffer` et `saved RIP`, injecter un shellcode et r
 
 ## Outils
 
-- `gdb`/`pwndbg` pour visualiser les frames (`info frame`, `x/20gx $rsp`)
-- `pwntools` ou `nasm` pour assembler un shellcode minimal (`/bin/sh`)
-- `pattern create` / `pattern search` pour mesurer l’offset exact
+- **GDB + GEF** — traçage dynamique, suivi des registres et de la mémoire.
+- **pwntools** — génération de payloads, orchestrations multi-phase et automatisation.
+- **NASM** — assemblage de shellcodes personnalisés ou instrumentation précise.
+- **Python 3** — scripts d'automatisation, tooling auxiliaire, parsing.
+- **C** — code vulnérable, harness minimal, reproductions.
+- Autres utilitaires : checksec, file, strings, objdump, angr, etc.
 
 ---
 

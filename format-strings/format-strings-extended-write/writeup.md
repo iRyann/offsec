@@ -32,9 +32,12 @@ En combinant le padding de `printf` et `%n`, on remplace la chaîne `safe_comman
 
 ## Outils
 
-- `gdb`/`gef` pour vérifier l’offset de `safe_command`
-- `pwntools` pour calculer automatiquement le padding correspondant à `"sh"`
-- `fmtstr_payload` ou formatage manuel (`%<N>c%M$n`)
+- **GDB + GEF** — traçage dynamique, suivi des registres et de la mémoire.
+- **pwntools** — génération de payloads, orchestrations multi-phase et automatisation.
+- **NASM** — assemblage de shellcodes personnalisés ou instrumentation précise.
+- **Python 3** — scripts d'automatisation, tooling auxiliaire, parsing.
+- **C** — code vulnérable, harness minimal, reproductions.
+- Autres utilitaires : checksec, file, strings, objdump, angr, etc.
 
 ---
 

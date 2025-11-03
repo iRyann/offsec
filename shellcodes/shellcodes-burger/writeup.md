@@ -32,9 +32,12 @@ Injecter un shellcode fonctionnel alors qu’un canary statique `0xdeadbeefdeadb
 
 ## Outils
 
-- `gdb` pour mesurer les offsets (buffer → canary → `saved RIP`)
-- `pwntools` pour assembler les deux fragments et automatiser le calcul du saut relatif
-- Scripts NASM (`sc1.nasm`, `sh.nasm`) pour tester plusieurs variantes
+- **GDB + GEF** — traçage dynamique, suivi des registres et de la mémoire.
+- **pwntools** — génération de payloads, orchestrations multi-phase et automatisation.
+- **NASM** — assemblage de shellcodes personnalisés ou instrumentation précise.
+- **Python 3** — scripts d'automatisation, tooling auxiliaire, parsing.
+- **C** — code vulnérable, harness minimal, reproductions.
+- Autres utilitaires : checksec, file, strings, objdump, angr, etc.
 
 ---
 

@@ -32,9 +32,12 @@ Divulguer `secret` pour passer la vérification et obtenir un shell via `system(
 
 ## Outils
 
-- `gdb`/`gef` pour cartographier la pile
-- `pwntools` pour automatiser l’envoi de multiples spécificateurs de format
-- `hexdump` pour vérifier la structure des arguments sur la stack
+- **GDB + GEF** — traçage dynamique, suivi des registres et de la mémoire.
+- **pwntools** — génération de payloads, orchestrations multi-phase et automatisation.
+- **NASM** — assemblage de shellcodes personnalisés ou instrumentation précise.
+- **Python 3** — scripts d'automatisation, tooling auxiliaire, parsing.
+- **C** — code vulnérable, harness minimal, reproductions.
+- Autres utilitaires : checksec, file, strings, objdump, angr, etc.
 
 ---
 

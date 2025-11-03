@@ -32,8 +32,12 @@ Trouver une valeur d’entrée qui, après `num = num + num + num;`, vaut exacte
 
 ## Outils
 
-- Calculatrice modulaire (Python, `pwntools`) pour tester les overflows
-- `gdb` pour vérifier la valeur stockée dans `eax`
+- **GDB + GEF** — traçage dynamique, suivi des registres et de la mémoire.
+- **pwntools** — génération de payloads, orchestrations multi-phase et automatisation.
+- **NASM** — assemblage de shellcodes personnalisés ou instrumentation précise.
+- **Python 3** — scripts d'automatisation, tooling auxiliaire, parsing.
+- **C** — code vulnérable, harness minimal, reproductions.
+- Autres utilitaires : checksec, file, strings, objdump, angr, etc.
 
 ---
 

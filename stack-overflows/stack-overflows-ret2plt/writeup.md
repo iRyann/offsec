@@ -32,9 +32,12 @@ Exploiter `gets` pour déclencher `login()` malgré NX et ASLR partiel.
 
 ## Outils
 
-- `gdb`/`gef` pour calculer l’offset et récupérer les adresses (`login`, gadget `ret`)
-- `pwntools` + `ROP(exe)` pour identifier un gadget de réalignement
-- `checksec` pour confirmer les protections (NX activé, RELRO partiel)
+- **GDB + GEF** — traçage dynamique, suivi des registres et de la mémoire.
+- **pwntools** — génération de payloads, orchestrations multi-phase et automatisation.
+- **NASM** — assemblage de shellcodes personnalisés ou instrumentation précise.
+- **Python 3** — scripts d'automatisation, tooling auxiliaire, parsing.
+- **C** — code vulnérable, harness minimal, reproductions.
+- Autres utilitaires : checksec, file, strings, objdump, angr, etc.
 
 ---
 

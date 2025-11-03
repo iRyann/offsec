@@ -32,9 +32,12 @@ En contrôlant la chaîne de format, on exploite `%n` pour écrire la valeur 42 
 
 ## Outils
 
-- `gdb`/`gef` pour identifier la position de `userid` sur la pile
-- `pwntools` pour construire le payload et gérer le dialogue réseau
-- `fmtstr_payload` (optionnel) ou calcul manuel du padding
+- **GDB + GEF** — traçage dynamique, suivi des registres et de la mémoire.
+- **pwntools** — génération de payloads, orchestrations multi-phase et automatisation.
+- **NASM** — assemblage de shellcodes personnalisés ou instrumentation précise.
+- **Python 3** — scripts d'automatisation, tooling auxiliaire, parsing.
+- **C** — code vulnérable, harness minimal, reproductions.
+- Autres utilitaires : checksec, file, strings, objdump, angr, etc.
 
 ---
 

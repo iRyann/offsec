@@ -32,9 +32,12 @@ Exécuter un shellcode placé dans `buffer[15]` en contournant la contrainte d�
 
 ## Outils
 
-- `gdb`/`pwndbg` pour mesurer l’offset jusqu’au `saved RIP`
-- `pwntools` pour assembler le shellcode (`asm(shellcraft.sh())` adapté) et manipuler la fuite d’adresse
-- `hexdump` pour valider l’absence de `\x00`
+- **GDB + GEF** — traçage dynamique, suivi des registres et de la mémoire.
+- **pwntools** — génération de payloads, orchestrations multi-phase et automatisation.
+- **NASM** — assemblage de shellcodes personnalisés ou instrumentation précise.
+- **Python 3** — scripts d'automatisation, tooling auxiliaire, parsing.
+- **C** — code vulnérable, harness minimal, reproductions.
+- Autres utilitaires : checksec, file, strings, objdump, angr, etc.
 
 ---
 
