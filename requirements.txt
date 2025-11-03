@@ -1,7 +1,1 @@
 pwntools>=4.2.0
-#capstone>=4.0.2
-#unicorn>=2.0.2
-#pyelftools>=0.29
-#ropper>=2.4.4
-
-# Utils
