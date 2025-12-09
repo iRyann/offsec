@@ -1,0 +1,15 @@
+file
+3-heap-02-overflow: ELF 64-bit LSB executable, x86-64, version 1 (SYSV), dynamically linked, interpreter /lib64/ld-linux-x86-64.so.2, BuildID[sha1]=e11755923561672e8405a20d4a0af73264824771, for GNU/Linux 3.2.0, not stripped
+
+checksec
+RELRO           STACK CANARY      NX            PIE             RPATH      RUNPATH	Symbols		FORTIFY	Fortified	Fortifiable	FILE
+Full RELRO      No canary found   NX enabled    No PIE          No RPATH   No RUNPATH   73 Symbols	  No	0		13-heap-02-overflow
+
+addresses internes
+gef➤  print quit
+$2 = {<text variable, no debug info>} 0x4011a5 <quit>
+gef➤  print login
+$3 = {<text variable, no debug info>} 0x401186 <login>
+gef➤  print quit - login
+$4 = 0x1f
+
