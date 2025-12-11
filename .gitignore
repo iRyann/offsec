@@ -23,6 +23,8 @@ venv/
 .env*/
 
 # Editor files
+*.rep
+*.gpr
 *.swp
 *.swo
 .DS_Store
