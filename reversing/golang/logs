@@ -1,0 +1,94 @@
+ch32.bin: ELF 64-bit LSB executable, x86-64, version 1 (SYSV), statically linked, Go BuildID=2cf6d44559551c6185a598406fb67318d5b2396e, with debug_info, not stripped
+RELRO           STACK CANARY      NX            PIE             RPATH      RUNPATH	Symbols		FORTIFY	Fortified	Fortifiable	FILE
+[31mNo RELRO     [m   [31mNo canary found[m   [32mNX enabled [m   [31mNo PIE       [m   [32mN/A      [m  [32mN/A        [m  [31m3202 Symbols	[m  [32mN/A[m	0		0		ch32.bin
+ of unexported method previous allocCount=186264514923095703125931322574615478515625Anatolian_HieroglyphsInscriptional_PahlaviOther_Grapheme_Extend_cgo_unsetenv missingblock device requiredcheckdead: runnable gconcurrent map writesdefer on system stackfindrunnable: wrong pgcprocs inconsistencylink has been severedpackage not installedpanic on system stackread-only file systemreflect.Value.Complexreflect.Value.Pointerreflect.Value.SetUintreleasep: invalid argruntime: confused by runtime: newstack sp=runtime: work.nwait =stale NFS file handlestartlockedm: m has pstartm: m is spinningstate not recoverablestopg: invalid status/lib/time/zoneinfo.zip0123456789aAbBcCdDeEfF4656612873077392578125Inscriptional_ParthianSIGSTKFLT: stack faultSIGTSTP: keyboard stopaddress already in useargument list too longassembly checks failedbad g->status in readycannot allocate memoryexpected quoted stringfreeIndex is not validgetenv before env initinteger divide by zerointerface conversion: minpc or maxpc invalidnetwork is unreachablenon-Go function at pc=panic during softfloatprotocol not availableprotocol not supportedreflect.Value.MapIndexreflect.Value.SetFloatremote address changedruntime.main not on m0runtime: invalid type runtime: out of memoryruntime: s.allocCount=runtime:scanstack: gp=s.freeindex > s.nelemsscanstack - bad statussend on closed channelspan has no free spacestack not a power of 2timer goroutine (idle)trace: alloc too large is not in the Go heap
+.lib section in a.out corrupted11368683772161602973937988281255684341886080801486968994140625SIGSEGV: segmentation violationcannot assign requested addresscasgstatus: bad incoming valuescheckmark found unmarked objectentersyscallblock inconsistent fmt: unknown base; can't happeninserting span already in treapinternal error - misuse of itabmalformed time zone informationnon in-use span in unswept listpacer: sweep done at heap size reflect.MakeSlice: negative capreflect.MakeSlice: negative lenreflect: NumIn of non-func typeresetspinning: not a spinning mruntime: address space conflictruntime: cannot allocate memoryruntime: split stack overflow: 28421709430404007434844970703125SIGFPE: floating-point exceptionSIGTTOU: background write to ttygchelper not running on g0 stacknon-Go code disabled sigaltstacknumerical argument out of domainpanic while printing panic valuereflect.nameFrom: tag too long: reflect: NumOut of non-func typeremovespecial on invalid pointerresource temporarily unavailableruntime: epollcreate failed withruntime: failed MSpanList_Insertruntime: mcall function returnedruntime: newstack called from g=runtime: stack split at bad timeruntime: sudog with non-nil elemruntime: sudog with non-nil nextruntime: sudog with non-nil prevscanstack: goroutine not stoppedsoftware caused connection abortstackmapdata: index out of rangesweep increased allocation countuse of closed network connection of method on nil interface value142108547152020037174224853515625710542735760100185871124267578125SIGCHLD: child status has changedSIGTTIN: background read from ttySIGXFSZ: file size limit exceededconcurrent map read and map writefindrunnable: negative nmspinningfreeing stack not in a stack spanheapBitsSetType: unexpected shiftreflect.nameFrom: name too long: reflect: ChanDir of non-chan typereflect: Field index out of rangereflect: Field of non-struct typereflect: array index out of rangereflect: slice index out of rangeruntime: castogscanstatus oldval=runtime: goroutine stack exceeds runtime: name offset out of rangeruntime: text offset out of rangeruntime: type offset out of rangestackalloc not on scheduler stackstoplockedm: inconsistent lockingtoo many levels of symbolic linkstreap insert finds a broken treaptreap node with nil spanKey foundwaiting for unsupported file type3552713678800500929355621337890625MHeap_AllocLocked - MSpan not freeMSpan_EnsureSwept: m is not lockedOther_Default_Ignorable_Code_PointSIGURG: urgent condition on socketforEachP: sched.safePointWait != 0heapBitsForSpan: base out of rangereflect.FuncOf: too many argumentsreflect: Field index out of boundsreflect: Method index out of rangereflect: string index out of rangeruntime.SetFinalizer: cannot pass runtime: g is running but p is notruntime: unexpected return pc for schedule: spinning with local workspan and treap sizes do not match?too many references: cannot splice1776356839400250464677810668945312588817841970012523233890533447265625MHeap_FreeSpanLocked - invalid freefindfunc: bad findfunctab entry idxfindrunnable: netpoll with spinninggreyobject: obj not pointer-alignedmisrounded allocation in mallocinitnetwork dropped connection on resetpersistentalloc: align is too largepidleput: P has non-empty run queuereflect.MakeSlice of non-slice typeruntime: close polldesc w/o unblocktraceback did not unwind completelytransport endpoint is not connectedunsigned integer overflow on token 0123456789abcdefghijklmnopqrstuvwxyz444089209850062616169452667236328125Go pointer stored into non-Go memoryMStats vs MemStatsType size mismatchaccessing a corrupted shared librarykey size not a multiple of key alignmarkrootSpans during second markrootreflect: IsVariadic of non-func typereflect: NumField of non-struct typereflect: funcLayout of non-func typeruntime: bad notifyList size - sync=runtime: failed MSpanList_InsertBackruntime: invalid pc-encoded table f=runtime: invalid typeBitsBulkBarrierruntime: mcall called on m->g0 stackruntime: sudog with non-nil waitlinkruntime: unblock on closing polldescruntime: wrong goroutine in newstacksignal arrived during cgo execution
+syntax error scanning complex numberuncaching span but s.allocCount == 0) is smaller than minimum page size (2220446049250313080847263336181640625_cgo_notify_runtime_init_done missingall goroutines are asleep - deadlock!cannot exec a shared library directlyoperation not possible due to RF-killreflect.Value.Bytes of non-byte slicereflect.Value.Bytes of non-rune slicereflect: Bits of non-arithmetic Type runtime: address space conflict: map(runtime: allocation size out of rangesetprofilebucket: profile already setstartTheWorld: inconsistent mp->nextpvalue too large for defined data type1110223024625156540423631668090820312555511151231257827021181583404541015625arg size to reflect.call more than 1GBcan not access a needed shared libraryconcurrent map iteration and map writegcBgMarkWorker: blackening not enabledmakechan: invalid channel element typeruntime: blocked read on free polldescruntime: function symbol table header:runtime: sudog with non-nil selectdone277555756156289135105907917022705078125MSpan_Sweep: bad span state after sweepheapBitsSetTypeGCProg: small allocationmisrounded allocation in MHeap_SysAllocreceived on thread with no signal stackreflect: FieldByName of non-struct typeruntime: blocked write on free polldescruntime: casfrom_Gscanstatus failed gp=runtime: typeBitsBulkBarrier with type span and treap node npages do not matchstack growth not allowed in system calltransport endpoint is already connected13877787807814456755295395851135253906256938893903907228377647697925567626953125address family not supported by protocolbulkBarrierPreWrite: unaligned argumentscannot free workbufs when work.full != 0deferproc: d.panic != nil after newdeferreceived but handler not on signal stackrefill of span with free space remainingreflect.Value.SetBytes of non-byte slicereflect.Value.setRunes of non-rune slicereflect: FieldByIndex of non-struct typeruntime.SetFinalizer: first argument is runtime: out of memory: cannot allocate value size not a multiple of value align34694469519536141888238489627838134765625MHeap_FreeSpanLocked - invalid span stateMHeap_FreeSpanLocked - invalid stack freecan't call pointer on a non-pointer ValuegcSweep being done but phase is not GCoffruntime.SetFinalizer: second argument is runtime.makemap: unsupported map key typeruntime: blocked read on closing polldescruntime: typeBitsBulkBarrier without typesetCheckmarked and isCheckmarked disagreestopTheWorld: not stopped (stopwait != 0)strconv: illegal AppendInt/FormatInt base173472347597680709441192448139190673828125867361737988403547205962240695953369140625acquireSudog: found s.elem != nil in cachepersistentalloc: align is not a power of 2runtime: blocked write on closing polldescruntime: heapBitsSetTypeGCProg: total bitssync/atomic: store of nil value into Valueunexpected signal during runtime executiongcBgMarkWorker: unexpected gcMarkWorkerModegentraceback before goexitPC initializationheapBitsSetTypeGCProg: unexpected bit countinterrupted system call should be restartedmultiple Read calls return no data or errorreflect: FieldByNameFunc of non-struct typereflect: nil type passed to Type.Implementsruntime.SetFinalizer: finalizer already setruntime.SetFinalizer: first argument is nilruntime: casfrom_Gscanstatus bad oldval gp=runtime: releaseSudog with non-nil gp.paramunknown runnable goroutine during bootstrap using value obtained using unexported fieldgcmarknewobject called while doing checkmarkreflect: funcLayout with interface receiver runtime: lfstack.push invalid packing: node=systemstack called from unexpected goroutinecannot send after transport endpoint shutdownexitsyscall: syscall frame is no longer validheapBitsSetType: called with non-pointer typereflect: internal error: invalid method indexreflect: nil type passed to Type.AssignableToruntime: failed MSpanList_Remove span.npages=panicwrap: unexpected string after type name: reflect.Value.Slice: slice index out of boundsreflect: nil type passed to Type.ConvertibleToruntime: failed to create new OS thread (have runtime: name offset base pointer out of rangeruntime: panic before malloc heap initialized
+fmt: scanning called UnreadRune with no rune availablegcControllerState.findRunnable: blackening not enabledno goroutines (main called runtime.Goexit) - deadlock!reflect.FuncOf does not support more than 50 argumentscasfrom_Gscanstatus:top gp->status is not in scan stategentraceback callback cannot be used with non-zero skipnewproc: function arguments too large for new goroutinereflect.FuncOf: last arg of variadic func must be slicereflect: internal error: invalid use of makeMethodValuein gcMark expecting to see gcphase as _GCmarkterminationgentraceback cannot trace user goroutine on its own stacknon-Go code set up signal handler without SA_ONSTACK flagruntime:stoplockedm: g is not Grunnable or Gscanrunnable
+runtime.main
+runtime.main.func1
+runtime.main.func2
+main
+main.main
+main.init
+main.statictmp_2
+main.statictmp_0
+main.statictmp_1
+main.initdone
+runtime.main_init_done
+runtime.mainStarted
+runtime.mainPC
+runtime.main
+runtime.main.func1
+runtime.main.func2
+main
+main.main
+main.init
+main.statictmp_2
+main.statictmp_0
+main.statictmp_1
+main.initdone
+runtime.main_init_done
+runtime.mainStarted
+runtime.mainPC
+main.statictmp_2
+main.statictmp_0
+main.statictmp_1
+main.initdone.
+runtime.main_init_done
+runtime.mainStarted
+runtime.mainPC
+runtime.main
+runtime.main.func1
+runtime.main.func2
+main
+main.main
+main.init
+
+pwndbg> search "correct"
+Searching for byte: b'correct'
+ch32.bin        0x4c6e0f 0x6974636572726f63 ('correcti')
+ch32.bin        0x4c713f 0x6874636572726f63 ('correcth')
+ch32.bin        0x4caf53 0x2074636572726f63 ('correct ')
+pwndbg> search "correct flag"
+Searching for byte: b'correct flag'
+pwndbg> search "flag"
+Searching for byte: b'flag'
+ch32.bin        0x494548 0x6604000067616c66 /* 'flag' */
+ch32.bin        0x494fd4 0x6605000067616c66 /* 'flag' */
+ch32.bin        0x494fe3 0x500007367616c66 /* 'flags' */
+ch32.bin        0x495214 0x7405000067616c66 /* 'flag' */
+ch32.bin        0x4956bc 0x600007367616c66 /* 'flags' */
+ch32.bin        0x495ad3 0x700007367616c66 /* 'flags' */
+ch32.bin        0x4963d6 0x800007367616c66 /* 'flags' */
+ch32.bin        0x4964b2 0x800007367616c66 /* 'flags' */
+ch32.bin        0x4965ba 0x800007367616c66 /* 'flags' */
+ch32.bin        0x497001 0xa00007367616c66 /* 'flags' */
+ch32.bin        0x499d9c 0x2a0d000067616c66 /* 'flag' */
+ch32.bin        0x49a12d 0x2a0e000167616c66
+ch32.bin        0x49a23d 0x2a0e000067616c66 /* 'flag' */
+ch32.bin        0x4ad836 'flags int32; fd int32; off uint32 }'
+ch32.bin        0x4c4680 0x6972207367616c66 ('flags ri')
+ch32.bin        0x4c4d80 0x6174282067616c66 ('flag (ta')
+ch32.bin        0x4c82f7 0x636f6c2067616c66 ('flag loc')
+ch32.bin        0x4cae07 0x746e757267616c66 ('flagrunt')
+ch32.bin        0x4fa795 0x7200007367616c66 /* 'flags' */
+ch32.bin        0x5192f0 'flag.mustBe'
+ch32.bin        0x519305 'flag.kind'
+ch32.bin        0x519390 'flag.mustBeExported'
+ch32.bin        0x519428 'flag.mustBeAssignable'
+ch32.bin        0x5266d1 0x200007367616c66 /* 'flags' */
+ch32.bin        0x526aea 'flag.reflect.kind'
+ch32.bin        0x52b4f6 'flags_amd64.go'
+pwndbg> x/s 0x4caf53
+0x4caf53:	"correct use of unsafe or cgo?)runtime: internal error: misuse of lockOSThread/unlockOSThreadruntime.SetFinalizer: pointer not at beginning of allocated blockstrconv: internal error: extFloat.FixedDeci"...
+
+
+pwndbg> x/gx main.statictmp_2
+0x4d6040 <main.statictmp_2>:	0x081c0c1b1b23023b
+pwndbg> x/14cb 0x4d6040
+0x4d6040 <main.statictmp_2>:	0x3b	0x2	0x23	0x1b	0x1b	0xc	0x1c	0x8
+0x4d6048 <main.statictmp_2+8>:	0x28	0x1b	0x21	0x4	0x1c	0xb
+pwndbg> x/6cb 0x004c446d
+0x4c446d:	0x72	0x6f	0x6f	0x74	0x6d	0x65
+

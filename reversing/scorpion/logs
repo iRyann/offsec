@@ -1,0 +1,31 @@
+scorpion: ELF 64-bit LSB executable, x86-64, version 1 (SYSV), statically linked, corrupted section header size
+En-tête ELF:
+  Magique:   7f 45 4c 46 02 01 01 00 00 00 00 00 00 00 00 00 
+  Classe:                            ELF64
+  Données:                          complément à 2, système à octets de poids faible d'abord (little endian)
+  Version:                           1 (actuelle)
+  OS/ABI:                            UNIX - System V
+  Version ABI:                       0
+  Type:                              EXEC (fichier exécutable)
+  Machine:                           Advanced Micro Devices X86-64
+  Version:                           0x1
+  Adresse du point d'entrée:         0x4000b0
+  Début des en-têtes de programme :  64 (octets dans le fichier)
+  Début des en-têtes de section :    0 (octets dans le fichier)
+  Fanions:                           0x0
+  Taille de cet en-tête:             64 (octets)
+  Taille de l'en-tête du programme:  56 (octets)
+  Nombre d'en-tête du programme:     2
+  Taille des en-têtes de section:    0 (octets)
+  Nombre d'en-têtes de section:      7
+  Table d'index des chaînes d'en-tête de section: 1396 <corrompu: hors limites>
+
+En-têtes de programme :
+  Type           Décalage           Adr.virt           Adr.phys.
+                 Taille fichier     Taille mémoire      Fanion Alignement
+  LOAD           0x00000000000000b0 0x00000000004000b0 0x0000000000000000
+                 0x0000000000000214 0x0000000000000214  RWE    0x1000
+  GNU_STACK      0x0000000000000000 0x0000000000000000 0x0000000000000000
+                 0x0000000000000000 0x0000000000000000  RWE    0x1000
+
+Il n'y a pas de section dynamique dans ce fichier.
