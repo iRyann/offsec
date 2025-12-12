@@ -1,0 +1,67 @@
+exam: ELF, unknown class 102
+RELRO           STACK CANARY      NX            PIE             RPATH      RUNPATH	Symbols		FORTIFY	Fortified	Fortifiable	FILE
+[31mNo RELRO     [m   [31mNo canary found[m   [31mNX disabled[m   [31mNo PIE       [m   [32mN/A      [m  [32mN/A        [m  [32mNo Symbols	[m[32mN/A[m	0		0		exam
+En-tête ELF:
+  Magique:   7f 45 4c 46 66 0f 91 ac 89 c7 b2 03 0f 05 eb 19 
+  Classe:                            <inconnu: 66>
+  Données:                          <inconnu: f>
+  Version:                           145 <inconnu>
+  OS/ABI:                            <inconnu: ac>
+  Version ABI:                       137
+  Type:                              EXEC (fichier exécutable)
+  Machine:                           Advanced Micro Devices X86-64
+  Version:                           0xa95d5bbb
+  Adresse du point d'entrée:         0x4eaf055
+  Début des en-têtes de programme :  2795 (octets dans le fichier)
+  Début des en-têtes de section :    56 (octets dans le fichier)
+  Fanions:                           0x0
+  Taille de cet en-tête:             45251 (octets)
+  Taille de l'en-tête du programme:  35132 (octets)
+  Nombre d'en-tête du programme:     4071
+  Taille des en-têtes de section:    34309 (octets)
+  Nombre d'en-têtes de section:      50113
+  Table d'index des chaînes d'en-tête de section: 28331
+
+Il n'y a pas de section dynamique dans ce fichier.
+
+
+pwndbg> vmmap
+LEGEND: STACK | HEAP | CODE | DATA | WX | RODATA
+             Start                End Perm     Size Offset File (set vmmap-prefer-relpaths on)
+     0xaeb04eaf000      0xaeb04eb1000 r-xp     2000      0 exam
+     0xaeb04eb1000      0xaeb05545000 rwxp   694000      0 [anon_aeb04eb1]
+
+
+pwndbg>
+0x0000000000100047 in ?? ()
+=> 0x0000000000100047:	00 00              	add    BYTE PTR [rax],al
+LEGEND: STACK | HEAP | CODE | DATA | WX | RODATA
+─────────────────────────────────────[ REGISTERS / show-flags off / show-compact-regs off ]──────────────────────────────────────
+ RAX  0x100000 ◂— jg 0x100047 /* 0xac910f66464c457f */
+ RBX  0x824a4ff98da8985
+ RCX  0x111
+ RDX  0x100055 ◂— pop rsi /* 0x17e85e5d5e */
+ RDI  0x405330 ◂— 2
+ RSI  0x405312 ◂— 0
+ R8   0x7ffff7e08ac0 ◂— 0
+ R9   0x100
+ R10  4
+ R11  0xffffffffffffffc0
+ R12  0x7fffffffd3f8 —▸ 0x7fffffffd890 ◂— '/home/ryan/dev/lab/offsec/reversing/exam/bin/oracle'
+ R13  2
+ R14  0x7ffff7ffd000 (_rtld_global) —▸ 0x7ffff7ffe2f0 ◂— 0
+ R15  0x403df0 —▸ 0x4011f0 ◂— endbr64
+ RBP  0x404098 (fake_argv0) ◂— 0x656c6361726f /* 'oracle' */
+ RSP  0x405348 ◂— 0
+*RIP  0x100047 ◂— add byte ptr [rax], al /* 0xaeb04eaf00000 */
+──────────────────────────────────────────────[ DISASM / x86-64 / set emulate on ]───────────────────────────────────────────────
+   0x100074    pop    rax                    RAX => 0x10005d
+   0x100075    lodsb  al, byte ptr [rsi]
+   0x100076    jmp    rax                         <0x100000>
+    ↓
+   0x100000  ✔ jg     0x100047                    <0x100047>
+    ↓
+ ► 0x100047    add    byte ptr [rax], al     [0x100000] <= 127 (0x7f + 0x0)
+
+
+

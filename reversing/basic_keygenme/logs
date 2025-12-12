@@ -1,0 +1,34 @@
+ch36.bin: ELF 64-bit LSB executable, x86-64, version 1 (SYSV), statically linked, stripped
+RELRO           STACK CANARY      NX            PIE             RPATH      RUNPATH	Symbols		FORTIFY	Fortified	Fortifiable	FILE
+[31mNo RELRO     [m   [31mNo canary found[m   [31mNX disabled[m   [31mNo PIE       [m   [32mN/A      [m  [32mN/A        [m  [32mNo Symbols	[m[32mN/A[m	0		0		ch36.bin
+En-tête ELF:
+  Magique:   7f 45 4c 46 02 01 01 00 00 00 00 00 00 00 00 00 
+  Classe:                            ELF64
+  Données:                          complément à 2, système à octets de poids faible d'abord (little endian)
+  Version:                           1 (actuelle)
+  OS/ABI:                            UNIX - System V
+  Version ABI:                       0
+  Type:                              EXEC (fichier exécutable)
+  Machine:                           Advanced Micro Devices X86-64
+  Version:                           0x1
+  Adresse du point d'entrée:         0x400186
+  Début des en-têtes de programme :  64 (octets dans le fichier)
+  Début des en-têtes de section :    640 (octets dans le fichier)
+  Fanions:                           0x0
+  Taille de cet en-tête:             64 (octets)
+  Taille de l'en-tête du programme:  56 (octets)
+  Nombre d'en-tête du programme:     2
+  Taille des en-têtes de section:    64 (octets)
+  Nombre d'en-têtes de section:      5
+  Table d'index des chaînes d'en-tête de section: 4
+[!] x64 NASM Keygen-Me
+[A] root-me   
+[?] Login : [?] Key : 
+[\o/] Yeah, good job bro, now write a keygen :)
+[.|..] THE GAME
+.m.key
+t9PH
+.bss
+.data:
+.shstrtab
+.text:
