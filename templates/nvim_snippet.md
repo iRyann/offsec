@@ -6,7 +6,7 @@ local i = ls.insert_node
 local fmt = require("luasnip.extras.fmt").fmt
 
 return {
--- SNIPPET MINIMAL POUR PRISE DE NOTES RAPIDE (utilise ça PENDANT l'exam)
+-- SNIPPET MINIMAL POUR PRISE DE NOTES RAPIDE
 s("note", fmt([[
 
 ## [{}] {}
