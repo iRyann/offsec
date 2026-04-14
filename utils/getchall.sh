@@ -1,6 +1,6 @@
-mkdir "$2"
-cd "$2" || exit
-wget "$1"
+mkdir "$1"
+cd "$1" || exit
+wget --http-user=ctf --http-password=promo2526 http://cytech.tcdn.casa:8080/"$1"
 
 chmod 777 "$(*.bin)"
 
